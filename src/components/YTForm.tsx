@@ -7,8 +7,16 @@ type FormValue = {
   channel: string;
 };
 
+const YTformDefaultValue = {
+  username: '',
+  email: '',
+  channel: '',
+};
+
 export const YouTubeForm = () => {
-  const { register, control, handleSubmit, formState } = useForm<FormValue>();
+  const { register, control, handleSubmit, formState } = useForm<FormValue>({
+    defaultValues: YTformDefaultValue,
+  });
   const { errors } = formState;
 
   const onSubmit = (data: FormValue) => {
