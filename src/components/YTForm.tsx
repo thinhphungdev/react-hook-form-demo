@@ -18,7 +18,7 @@ type FormValue = {
 };
 
 const YTformDefaultValue: FormValue = {
-  username: '',
+  username: 'haha',
   email: '',
   channel: '',
   social: {
@@ -32,9 +32,10 @@ const YTformDefaultValue: FormValue = {
 };
 
 export const YouTubeForm = () => {
-  const { register, control, handleSubmit, formState } = useForm<FormValue>({
-    defaultValues: YTformDefaultValue,
-  });
+  const { register, control, handleSubmit, formState, getValues, setValue } =
+    useForm<FormValue>({
+      defaultValues: YTformDefaultValue,
+    });
   const { errors } = formState;
 
   const { fields, append, remove } = useFieldArray({
@@ -45,6 +46,21 @@ export const YouTubeForm = () => {
   const onSubmit = (data: FormValue) => {
     console.log('Submitted', data);
   };
+
+  // const watchForm = watch();
+
+  function handleValues() {
+    // getValues(); - get all values
+    // getValues('social.twitter')
+  }
+
+  function handleSetValue() {
+    setValue('username', 'hihi', {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
+  }
 
   return (
     <div>
@@ -180,6 +196,12 @@ export const YouTubeForm = () => {
         </div>
 
         <button>Submit</button>
+        <button type='button' onClick={handleValues}>
+          Get Values
+        </button>
+        <button type='button' onClick={handleSetValue}>
+          Set Values
+        </button>
       </form>
 
       <DevTool control={control} />
