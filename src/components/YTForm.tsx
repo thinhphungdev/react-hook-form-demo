@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 
 type FormValue = {
@@ -10,6 +10,9 @@ type FormValue = {
     twitter: string;
   };
   phoneNumbers: string[];
+  phNumbers: {
+    number: string;
+  }[];
 };
 
 const YTformDefaultValue: FormValue = {
@@ -20,7 +23,8 @@ const YTformDefaultValue: FormValue = {
     twitter: '',
     facebook: '',
   },
-  phoneNumbers: [],
+  phoneNumbers: ['', ''],
+  phNumbers: [{ number: '' }],
 };
 
 export const YouTubeForm = () => {
@@ -28,6 +32,11 @@ export const YouTubeForm = () => {
     defaultValues: YTformDefaultValue,
   });
   const { errors } = formState;
+
+  const { fields, append, remove } = useFieldArray({
+    name: 'phNumbers',
+    control,
+  });
 
   const onSubmit = (data: FormValue) => {
     console.log('Submitted', data);
@@ -117,6 +126,27 @@ export const YouTubeForm = () => {
             id='secondary-phone'
             {...register('phoneNumbers.1')}
           />
+        </div>
+
+        <div>
+          <label htmlFor=''>List of phone numbers</label>
+          <div>
+            {fields.map((field, idx) => {
+              return (
+                <div className='form-control' key={field.id}>
+                  <input type='text' {...register(`phNumbers.${idx}.number`)} />
+                  {idx > 0 && (
+                    <button type='button' onClick={() => remove(idx)}>
+                      Remove
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+            <button type='button' onClick={() => append({ number: '' })}>
+              Add new Phone number
+            </button>
+          </div>
         </div>
 
         <button>Submit</button>
