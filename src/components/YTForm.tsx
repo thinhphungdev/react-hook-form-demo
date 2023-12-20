@@ -1,4 +1,4 @@
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm, useFieldArray, FieldErrors } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 
 type FormValue = {
@@ -48,8 +48,6 @@ export const YouTubeForm = () => {
     console.log('Submitted', data);
   };
 
-  // const watchForm = watch();
-
   function handleValues() {
     // getValues(); - get all values
     // getValues('social.twitter')
@@ -63,11 +61,15 @@ export const YouTubeForm = () => {
     });
   }
 
+  const onError = (errors: FieldErrors<FormValue>) => {
+    console.log(errors, 'Fom error');
+  };
+
   return (
     <div>
       <h1>YT Form</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
         <div className='form-control'>
           <label htmlFor='username'>Username</label>
           <input
