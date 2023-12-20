@@ -11,3 +11,8 @@
 
 #ReactHookForm for Form Validaton
 #Form Validation
+
+- Form fields state
+
+1. Touched: when user clicks to the field and then click outside => will be set to true
+2. Dirty: whether user has modified the input or not

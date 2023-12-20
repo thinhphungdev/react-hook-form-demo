@@ -32,10 +32,11 @@ const YTformDefaultValue: FormValue = {
 };
 
 export const YouTubeForm = () => {
-  const { register, control, handleSubmit, formState, getValues, setValue } =
+  const { register, control, handleSubmit, formState, setValue, watch } =
     useForm<FormValue>({
       defaultValues: YTformDefaultValue,
     });
+
   const { errors } = formState;
 
   const { fields, append, remove } = useFieldArray({
@@ -127,7 +128,13 @@ export const YouTubeForm = () => {
 
         <div className='form-control'>
           <label htmlFor='facebook'>Facebook</label>
-          <input type='text' id='facebook' {...register('social.facebook')} />
+          <input
+            type='text'
+            id='facebook'
+            {...register('social.facebook', {
+              disabled: watch('channel') === '',
+            })}
+          />
         </div>
 
         <div className='form-control'>
