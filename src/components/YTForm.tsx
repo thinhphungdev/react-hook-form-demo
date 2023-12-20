@@ -1,5 +1,6 @@
 import { useForm, useFieldArray, FieldErrors } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
+import { useEffect } from 'react';
 
 type FormValue = {
   username: string;
@@ -32,12 +33,12 @@ const YTformDefaultValue: FormValue = {
 };
 
 export const YouTubeForm = () => {
-  const { register, control, handleSubmit, formState, setValue, watch } =
+  const { register, reset, control, handleSubmit, formState, setValue, watch } =
     useForm<FormValue>({
       defaultValues: YTformDefaultValue,
     });
 
-  const { errors, isDirty, isValid, isSubmitting, reset } = formState;
+  const { errors, isDirty, isValid, isSubmitting, isSubmitted } = formState;
 
   const { fields, append, remove } = useFieldArray({
     name: 'phNumbers',
@@ -64,6 +65,10 @@ export const YouTubeForm = () => {
   const onError = (errors: FieldErrors<FormValue>) => {
     console.log(errors, 'Fom error');
   };
+
+  useEffect(() => {
+    reset();
+  }, [isSubmitted, reset]);
 
   return (
     <div>
