@@ -37,7 +37,7 @@ export const YouTubeForm = () => {
       defaultValues: YTformDefaultValue,
     });
 
-  const { errors } = formState;
+  const { errors, isDirty, isValid } = formState;
 
   const { fields, append, remove } = useFieldArray({
     name: 'phNumbers',
@@ -204,7 +204,7 @@ export const YouTubeForm = () => {
           <p className='error'>{errors.dob?.message}</p>
         </div>
 
-        <button>Submit</button>
+        <button disabled={!isDirty || !isValid}>Submit</button>
         <button type='button' onClick={handleValues}>
           Get Values
         </button>
