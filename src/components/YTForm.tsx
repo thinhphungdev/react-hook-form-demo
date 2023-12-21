@@ -38,7 +38,7 @@ export const YouTubeForm = () => {
       defaultValues: YTformDefaultValue,
     });
 
-  const { errors, isDirty, isValid, isSubmitting, isSubmitted } = formState;
+  const { errors, isDirty, isSubmitting, isSubmitted } = formState;
 
   const { fields, append, remove } = useFieldArray({
     name: 'phNumbers',
@@ -109,6 +109,13 @@ export const YouTubeForm = () => {
                     !fieldValue.endsWith('demo.com') ||
                     'This domain is not supported'
                   );
+                },
+                emailAvailable: async (fieldValue) => {
+                  const response = await fetch(
+                    `https://jsonplaceholder.typicode.com/users?email=${fieldValue}`
+                  );
+                  const data = await response.json();
+                  return data.length == 0 || 'Email already exists';
                 },
               },
             })}
@@ -209,7 +216,7 @@ export const YouTubeForm = () => {
           <p className='error'>{errors.dob?.message}</p>
         </div>
 
-        <button disabled={!isDirty || !isValid || isSubmitting}>Submit</button>
+        <button disabled={!isDirty || isSubmitting}>Submit</button>
         <button type='button' onClick={handleValues}>
           Get Values
         </button>
