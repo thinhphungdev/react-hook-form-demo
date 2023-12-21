@@ -36,7 +36,7 @@ export const YupForm = () => {
 
   return (
     <div>
-      <h1>Yup YouTube Form</h1>
+      <h1>Yup Form</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className='form-control'>
