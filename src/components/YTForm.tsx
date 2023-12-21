@@ -33,10 +33,18 @@ const YTformDefaultValue: FormValue = {
 };
 
 export const YouTubeForm = () => {
-  const { register, reset, control, handleSubmit, formState, setValue, watch } =
-    useForm<FormValue>({
-      defaultValues: YTformDefaultValue,
-    });
+  const {
+    register,
+    reset,
+    control,
+    handleSubmit,
+    formState,
+    setValue,
+    watch,
+    trigger,
+  } = useForm<FormValue>({
+    defaultValues: YTformDefaultValue,
+  });
 
   const { errors, isDirty, isSubmitting, isSubmitted } = formState;
 
@@ -209,7 +217,7 @@ export const YouTubeForm = () => {
             type='text'
             id='dob'
             {...register('dob', {
-              required: 'Channel is required',
+              required: 'DOB is required',
               valueAsDate: true,
             })}
           />
@@ -223,6 +231,8 @@ export const YouTubeForm = () => {
         <button type='button' onClick={handleSetValue}>
           Set Values
         </button>
+
+        <button onClick={() => trigger()}>Validate Manually</button>
       </form>
 
       <DevTool control={control} />

@@ -25,3 +25,8 @@
 2. isSubmitted: false default value, set to true after the form submission completed
 
 3. isSubmitSuccessful: is the form submit success without any error
+
+#Validation mode
+
+- onBlur, onSubmit
+- onChange (need to be careful with performance issues)
